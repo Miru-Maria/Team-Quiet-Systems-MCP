@@ -2,6 +2,134 @@ import type { Express } from "express";
 import type { Server } from "http";
 import { openai } from "./openai";
 
+interface BrightDataNewsItem {
+  title: string;
+  link: string;
+  source: string;
+  publication_date: string;
+  description: string;
+}
+
+// Background Bright Data job state
+let brightDataJobId: string | null = null;
+let brightDataJobRunning = false;
+let brightDataLiveItems: any[] | null = null;
+
+async function triggerBrightDataJob(): Promise<void> {
+  const apiKey = process.env.BRIGHTDATA_API_KEY;
+  if (!apiKey || brightDataJobRunning) return;
+
+  brightDataJobRunning = true;
+  console.log("Bright Data: triggering background Google News scrape...");
+
+  try {
+    const triggerResp = await fetch(
+      "https://api.brightdata.com/dca/trigger?collector=c_mmaxvsv714xslv250f&queue_next=1",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify([
+          {
+            url: "https://news.google.com/search?q=Montgomery+Alabama+assault+crime&hl=en-US&gl=US&ceid=US:en",
+          },
+        ]),
+      }
+    );
+
+    if (!triggerResp.ok) {
+      const text = await triggerResp.text();
+      throw new Error(`Trigger failed: ${triggerResp.status} — ${text}`);
+    }
+
+    const triggerJson = await triggerResp.json();
+    console.log("Bright Data DCA trigger response:", JSON.stringify(triggerJson));
+
+    const collectionId: string | undefined =
+      triggerJson?.collection_id ?? triggerJson?.response_id ?? triggerJson?.id;
+
+    if (!collectionId) {
+      throw new Error(`No collection_id: ${JSON.stringify(triggerJson)}`);
+    }
+
+    brightDataJobId = collectionId;
+    const pollUrl = `https://api.brightdata.com/dca/dataset?id=${collectionId}`;
+
+    // Poll in the background — up to 5 minutes
+    const maxAttempts = 60;
+    const pollInterval = 5000;
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      await new Promise((r) => setTimeout(r, pollInterval));
+
+      const pollResp = await fetch(pollUrl, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+      });
+
+      if (pollResp.status === 202) {
+        // Still collecting
+        continue;
+      }
+
+      if (!pollResp.ok) {
+        console.warn(`Bright Data poll error: ${pollResp.status}`);
+        continue;
+      }
+
+      const rawText = await pollResp.text();
+      let pollJson: any;
+      try {
+        pollJson = JSON.parse(rawText);
+      } catch {
+        continue;
+      }
+
+      if (Array.isArray(pollJson) && pollJson.length > 0) {
+        const items = pollJson
+          .filter((item: any) => item.title && (item.link || item.url))
+          .slice(0, 5)
+          .map((item: any) => ({
+            headline: item.title ?? "",
+            date: (item.publication_date ?? item.date ?? item.published ?? new Date().toISOString()).slice(0, 7),
+            sentiment: -0.5,
+            tone: "negative",
+            url: item.link ?? item.url ?? "",
+            source: item.source ?? item.publisher ?? item.origin ?? "",
+            description: item.description ?? item.snippet ?? item.summary ?? "",
+            live: true,
+          }));
+
+        if (items.length > 0) {
+          brightDataLiveItems = items;
+          // Invalidate cache so next /api/news-items request picks up live data
+          cachedNewsItems = items;
+          newsCacheTime = Date.now();
+          console.log("Bright Data live Google News integrated successfully");
+          break;
+        }
+      }
+
+      // If it's still collecting as an object, keep going
+      if (pollJson?.status === "collecting" || pollJson?.status === "building" || pollJson?.status === "pending") {
+        continue;
+      }
+
+      // Unexpected non-array response — stop
+      break;
+    }
+  } catch (err: any) {
+    console.warn("Bright Data background job failed:", err.message);
+  } finally {
+    brightDataJobRunning = false;
+    brightDataJobId = null;
+  }
+}
+
+// Kick off initial Bright Data scrape on server start (non-blocking)
+setTimeout(() => triggerBrightDataJob(), 3000);
+
 const ARCGIS_911_URL =
   "https://services7.arcgis.com/xNUwUjOJqYE54USz/ArcGIS/rest/services/911_Calls_Data/FeatureServer/0/query";
 
@@ -137,6 +265,10 @@ const REAL_NEWS_EVENTS = [
 let cachedTrendData: any = null;
 let cacheTime = 0;
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
+
+let cachedNewsItems: any[] | null = null;
+let newsCacheTime = 0;
+const NEWS_CACHE_TTL = 30 * 60 * 1000; // 30 minutes
 
 async function fetchMonthlyCallData(): Promise<ArcGISRecord[]> {
   const params = new URLSearchParams({
@@ -286,15 +418,32 @@ export async function registerRoutes(
 
   app.get("/api/news-items", async (req, res) => {
     try {
-      res.json(
-        REAL_NEWS_EVENTS.map((e) => ({
-          headline: e.headline,
-          date: e.date,
-          sentiment: e.sentiment,
-          tone: e.tone,
-          url: e.url,
-        }))
-      );
+      const forceRefresh = req.query.refresh === "true";
+
+      // If force refresh requested, kick off a new background job
+      if (forceRefresh && !brightDataJobRunning) {
+        triggerBrightDataJob();
+      }
+
+      // Return cached items (live or static) if still fresh
+      if (!forceRefresh && cachedNewsItems && Date.now() - newsCacheTime < NEWS_CACHE_TTL) {
+        return res.json(cachedNewsItems);
+      }
+
+      // If live Bright Data results are available, return them
+      if (brightDataLiveItems && brightDataLiveItems.length > 0) {
+        return res.json(brightDataLiveItems);
+      }
+
+      // Fallback to static curated news events while Bright Data runs in background
+      const staticItems = REAL_NEWS_EVENTS.map((e) => ({
+        headline: e.headline,
+        date: e.date,
+        sentiment: e.sentiment,
+        tone: e.tone,
+        url: e.url,
+      }));
+      res.json(staticItems);
     } catch (err: any) {
       res.status(500).json({ error: err.message });
     }

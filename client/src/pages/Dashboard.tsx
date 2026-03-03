@@ -512,16 +512,31 @@ export default function Dashboard() {
                       <div
                         key={i}
                         data-testid={`news-item-${i}`}
-                        className="flex items-center gap-3 p-3 rounded-md bg-muted/40 hover-elevate cursor-pointer group"
+                        className="flex items-start gap-3 p-3 rounded-md bg-muted/40 hover-elevate cursor-pointer group"
                         onClick={() => item.url && window.open(item.url, "_blank")}
                       >
-                        <div className="flex-shrink-0 text-center w-10">
+                        <div className="flex-shrink-0 text-center w-10 pt-0.5">
                           <span className="text-xs font-semibold text-muted-foreground block">
                             {item.date.slice(0, 7)}
                           </span>
+                          {(item as any).live && (
+                            <span className="text-[9px] font-bold text-emerald-500 uppercase tracking-wide block mt-0.5">
+                              LIVE
+                            </span>
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm leading-snug line-clamp-2">{item.headline}</p>
+                          {(item as any).source && (
+                            <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                              {(item as any).source}
+                            </p>
+                          )}
+                          {(item as any).description && (
+                            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1 opacity-75">
+                              {(item as any).description}
+                            </p>
+                          )}
                         </div>
                         <div className="flex-shrink-0 flex flex-col items-end gap-1">
                           <SentimentBadge score={item.sentiment} />
