@@ -1,0 +1,92 @@
+SYSTEM → Build an MVP called **“Assault Trend Contextualizer for Montgomery”**
+
+Target:
+- A real, data-rich tool that helps analyze and contextualize assault incident trends in Montgomery, AL.
+
+Requirements:
+1. Fetch structured crime data from Montgomery open data portal:
+   https://opendata.montgomeryal.gov/pages/data
+   - Specifically assault related datasets (by date, location, type)
+   - Clean and transform it into a usable table or Pandas dataframe
+
+2. Use the ScrapeAlchemist / Bright Data hack pack to enrich the dataset with live web signals:
+   - Local news headlines and sentiment related to assault/crime
+   - Community factors (e.g., nearby events, economic indicators)
+   - Normalize these signals into scores or trend indicators
+
+3. Build a lightweight backend:
+   - A simple API endpoint (Flask/FastAPI) or script that outputs:
+     • Assault trend timeline
+     • Context scores combining:
+         – raw incident counts
+         – aggregated web sentiment
+         – optional socio-economic signal
+     • A short AI-generated summary explaining pattern changes
+
+4. Build a simple front end:
+   - Graph of assault count over time
+   - Graph of context score over time
+   - A panel that displays text summaries for key spikes
+
+5. Use AI only for interpretation text and workflow generation, not as the core product
+
+Constraints:
+- Must use real Montgomery open data
+- Must enrich with web info via Bright Data (no mock data)
+- Prioritize clarity and a single deep insight
+- Keep project minimal and completeable within hackathon time
+
+Deliverables:
+- Source code in Replit
+- A working UI/API that displays contextualized assault trends
+- A short pitch script explaining:
+  • The problem
+  • The data
+  • The insight
+  • Why it matters
+
+Implementation Steps Outline:
+1. Data fetch & cleanup (open data portal)
+2. Web enrichment (Bright Data)
+3. Feature construction (context score)
+4. Visualization
+5. Text explanation generator
+6. Presentation script
+
+Begin building with clear code structuring, test functions modularly, and expose a simple endpoint or UI to show output.
+
+
+EXTRA: A Few Helpful Sub-Prompts
+1. For Data Ingestion
+Write Python code that fetches Montgomery crime data (assault) from:
+https://opendata.montgomeryal.gov/pages/data
+
+Clean and normalize:
+- Parse dates
+- Standardize location fields
+- Output to Pandas
+
+2. For Web Enrichment (Bright Data)
+Using Bright Data hack pack, write a function that:
+- Scrapes local news sites for headlines containing “assault” in Montgomery
+- Returns sentiment score per week
+- Normalizes scores for trend comparison
+
+3. For Trend Synthesis
+Take:
+- Incident counts per week
+- Web sentiment per week
+
+Compute a simple combined context score:
+context_score = normalized_incident_count × normalized_sentiment
+
+Generate a DataFrame with:
+- date
+- incidents
+- sentiment
+- context_score
+
+4. For AI-Generated Insight
+Using an AI model (in Replit), write a function:
+Given context_score and incidence data,
+Generate 3 short bullet insights explaining key changes
