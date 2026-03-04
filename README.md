@@ -1,5 +1,7 @@
 # Civic Lens Montgomery
 
+*Turning crime data into civic intelligence.*
+
 > A real-time public safety intelligence dashboard that enriches City of Montgomery 911 emergency call data with live news sentiment and AI-generated insights — giving residents, journalists, and city officials a clearer picture of community safety trends.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Deployed-brightgreen)](https://civic-lens-montgomery.replit.app)

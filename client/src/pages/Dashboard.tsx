@@ -148,6 +148,9 @@ export default function Dashboard() {
               <p className="text-xs text-muted-foreground flex items-center gap-1">
                 <MapPin className="w-3 h-3" /> Montgomery, Alabama
               </p>
+              <p className="text-xs text-muted-foreground italic">
+                Turning crime data into civic intelligence.
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
