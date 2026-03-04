@@ -143,7 +143,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-lg font-bold leading-tight" data-testid="text-app-title">
-                Assault Trend Contextualizer
+                Civic Lens Montgomery
               </h1>
               <p className="text-xs text-muted-foreground flex items-center gap-1">
                 <MapPin className="w-3 h-3" /> Montgomery, Alabama

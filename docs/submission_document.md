@@ -1,4 +1,4 @@
-# Assault Trend Contextualizer for Montgomery
+# Civic Lens Montgomery
 ## City of Montgomery Open Data Challenge — Submission Document
 
 **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
@@ -14,7 +14,7 @@
 
 Montgomery, Alabama recorded over 290,000 emergency 911 calls in 2025. Behind those numbers are stories — a summer shooting surge, a mass casualty event at the Alabama National Fair, policy responses, and community grief. Yet no public-facing tool connects those call volume signals to the news events, community sentiment, and patterns that give them meaning.
 
-The **Assault Trend Contextualizer for Montgomery** is a real-time public safety intelligence dashboard that closes that gap. It is the only tool that:
+**Civic Lens Montgomery** is a real-time public safety intelligence dashboard that closes that gap. It is the only tool that:
 
 - Fetches **live 911 emergency call data** directly from the City of Montgomery's ArcGIS Open Data portal
 - Enriches that data with **live news sentiment** scraped from Google News via Bright Data
@@ -120,7 +120,7 @@ Existing commercial alternatives (e.g., ShotSpotter, PredPol) are expensive, con
 
 ### Responsible Design Choices
 
-The tool is deliberately named an "Assault Trend Contextualizer" rather than a "Crime Predictor." It:
+The tool is deliberately named "Civic Lens" rather than a "Crime Predictor." It:
 
 - Does not identify individuals or locations within the city
 - Does not use arrest or conviction data (which carries racial bias risk)

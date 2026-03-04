@@ -1,4 +1,4 @@
-# Assault Trend Contextualizer for Montgomery
+# Civic Lens Montgomery
 
 A real-time data dashboard that contextualizes assault and emergency incident trends in Montgomery, AL using live open data from the City of Montgomery and AI-powered analysis.
 

@@ -1,4 +1,4 @@
-# Video Script — Assault Trend Contextualizer for Montgomery
+# Video Script — Civic Lens Montgomery
 ## Target Length: 3 minutes | Format: Screen Recording with Voiceover
 
 ---
@@ -9,7 +9,7 @@
 > - On Mac, **QuickTime Player > New Screen Recording** works fine
 > - Set your browser to 1280×720 or larger, close other tabs
 > - Upload to YouTube as **Unlisted** so judges can view it with the link but it's not public
-> - Title suggestion: "Assault Trend Contextualizer for Montgomery — City of Montgomery Open Data Challenge 2026"
+> - Title suggestion: "Civic Lens Montgomery — City of Montgomery Open Data Challenge 2026"
 
 ---
 
@@ -119,15 +119,15 @@
 ## Suggested YouTube Video Description
 
 ```
-Assault Trend Contextualizer for Montgomery
+Civic Lens Montgomery
 City of Montgomery Open Data Challenge 2026 — Stream 4: Public Safety & City Analytics
 
 A real-time public safety dashboard that combines live City of Montgomery 911 emergency call data
 with Google News sentiment and AI-generated insights to contextualise crime trends.
 
 Built with: React, Node.js, OpenAI, Bright Data, City of Montgomery ArcGIS Open Data
-Live app: https://assault-trend-contextualizer.replit.app
-Repository: https://github.com/YOUR_USERNAME/assault-trend-contextualizer
+Live app: https://civic-lens-montgomery.replit.app
+Repository: https://github.com/YOUR_USERNAME/civic-lens-montgomery
 
 Data source: City of Montgomery 911 Calls Data (ArcGIS FeatureServer, public open data)
 ```
