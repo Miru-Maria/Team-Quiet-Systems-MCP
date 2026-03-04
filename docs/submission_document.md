@@ -5,8 +5,8 @@
 **Solution Type**: Production-Ready (live data, fully deployed)
 **Submission Date**: March 2026
 **Team**: [Your Name / Team Name]
-**Live Application**: https://assault-trend-contextualizer.replit.app
-**Repository**: https://github.com/YOUR_USERNAME/assault-trend-contextualizer
+**Live Application**: https://civic-lens-montgomery.replit.app
+**Repository**: https://github.com/YOUR_USERNAME/civic-lens-montgomery
 
 ---
 

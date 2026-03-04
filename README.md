@@ -3,6 +3,8 @@
 > A real-time public safety intelligence dashboard that enriches City of Montgomery 911 emergency call data with live news sentiment and AI-generated insights — giving residents, journalists, and city officials a clearer picture of community safety trends.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Deployed-brightgreen)](https://civic-lens-montgomery.replit.app)
+
+**Live App: https://civic-lens-montgomery.replit.app**
 [![Challenge Stream](https://img.shields.io/badge/Challenge%20Stream-Public%20Safety%20%26%20Analytics-red)](https://github.com)
 [![Data Source](https://img.shields.io/badge/Data%20Source-City%20of%20Montgomery%20ArcGIS-blue)](https://opendata.montgomeryal.gov)
 [![Built With](https://img.shields.io/badge/Built%20With-React%20%7C%20Node.js%20%7C%20OpenAI%20%7C%20Bright%20Data-purple)](https://github.com)
