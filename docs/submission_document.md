@@ -4,9 +4,23 @@
 **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
 **Solution Type**: Production-Ready (live data, fully deployed)
 **Submission Date**: March 2026
-**Team**: [Your Name / Team Name]
+**Team**: Team Quiet Systems
 **Live Application**: https://civic-lens-montgomery.replit.app
-**Repository**: https://github.com/YOUR_USERNAME/civic-lens-montgomery
+**Repository**: https://github.com/Miru-Maria/Team-Quiet-Systems-MCP
+
+---
+
+## Scoring Summary
+
+| Criterion | Max Points | Notes |
+|---|---|---|
+| Consistency with Challenge Statements | 10 | Most important criterion |
+| Quality and Design | 10 | Algorithm, code, and design quality |
+| Originality | 5 | Differentiation from market alternatives |
+| Social Value / Impact | 5 | Value to society at large |
+| Commercialisation | 5 | Commercial opportunity potential |
+| **Bright Data Bonus** | **+3** | Automatic for using Bright Data product |
+| **Total Possible** | **38** | |
 
 ---
 
@@ -23,30 +37,32 @@ Montgomery, Alabama recorded over 290,000 emergency 911 calls in 2025. Behind th
 
 The result is a dashboard that transforms raw government data into actionable community intelligence — built on real Montgomery datasets, deployed today, accessible to anyone with a browser.
 
+Tagline: *"Turning crime data into civic intelligence."*
+
 ---
 
-## 2. Challenge Stream Alignment (Criterion 1 — 15 points)
+## 2. Consistency with Challenge Statements (Criterion 1 — /10)
+
+*This is the most important criterion.*
 
 ### Direct Match: Stream 4 — Public Safety, Emergency Response & City Analytics
 
-The challenge brief describes Stream 4 as: *"Design responsible analytics using alerts, news, and incident patterns to add context to safety data, like 'Community Safety Lens' combining 911 reports with public trends."*
+The challenge brief explicitly calls for solutions that: *"Analyze and improve insights from 911 data"* and *"Compare crime statistics with public perception and messaging."* Our application does both simultaneously, in real time.
 
-Our application is a precise implementation of this vision, built with real Montgomery data rather than simulated or placeholder values.
+The challenge also names Bright Data as a suggested tool — we integrated Bright Data's DCA collector to scrape live Google News stories about Montgomery safety, which automatically earns the 3-point bonus.
 
 ### How Every Requirement Maps to Our Solution
 
-| Stream 4 Criterion | Our Implementation |
+| Challenge Area | Our Implementation |
 |---|---|
-| Use City of Montgomery datasets | City of Montgomery 911 Call Data (ArcGIS FeatureServer, publicly accessible) |
-| Responsible analytics | Context Score formula is transparent, documented, and displayed in the UI |
-| Alerts + incident patterns | 13-month trend line with annotated peak events |
-| Add context to safety data | News sentiment feed enriches call volume with why spikes occurred |
-| Public trends enrichment | Bright Data live Google News scrape for Montgomery crime/safety stories |
-| Community-facing | Publicly deployed, no login required, designed for non-technical audiences |
+| City of Montgomery Data Portal | Live 911 Call Data via ArcGIS FeatureServer (public endpoint) |
+| Bright Data web scraping | Google News scrape for Montgomery crime/safety stories (background DCA job) |
+| AI, automation, or intelligent agents | OpenAI GPT generates plain-language insights from the trend data |
+| Turn real-world data into useful tools | Dashboard is deployed, live, and accessible to any resident today |
+| Analyze 911 data insights | 13-month trend analysis with month-over-month comparison |
+| Compare crime stats with public perception | Context Risk Score blends call volume with news sentiment |
 
 ### The Specific City of Montgomery Dataset
-
-The primary dataset powering this application is:
 
 **911 Calls Data — City of Montgomery ArcGIS Open Data Portal**
 - Service: `https://services7.arcgis.com/xNUwUjOJqYE54USz/ArcGIS/rest/services/911_Calls_Data/FeatureServer/0`
@@ -70,7 +86,7 @@ These findings emerge automatically from the live data pipeline — they are not
 
 ---
 
-## 3. Quality and Design (Criterion 2 — 10 points)
+## 3. Quality and Design (Criterion 2 — /10)
 
 ### Design Philosophy
 
@@ -80,7 +96,7 @@ The dashboard was designed around three guiding principles:
 
 **2. Progressive disclosure** — the top of the page shows the four most important numbers at a glance (total calls, peak month, trend, sentiment). Scrolling reveals the trend charts. The AI insights panel requires an intentional button click, placing detailed analysis where users who want it can find it without overwhelming those who do not.
 
-**3. Trust signals** — a "Live Open Data" badge in the header, explicit data source attribution at the bottom, and the displayed context score formula build credibility with informed users while remaining accessible to general audiences.
+**3. Trust signals** — a "Live Open Data" badge in the header, explicit data source attribution, and the displayed context score formula build credibility with informed users while remaining accessible to general audiences.
 
 ### Visual Components
 
@@ -88,22 +104,32 @@ The dashboard was designed around three guiding principles:
 |---|---|---|
 | Stat Cards (×4) | Immediate KPI overview | Color-coded variants: positive/negative/warning |
 | Emergency Call Volume Area Chart | Show 13-month call trend | Area fill communicates volume weight; reference line marks peak |
-| Context Risk Score Line Chart | Show composite risk + sentiment | Dual Y-axis removed in favor of normalized 0-1 scale for clarity |
-| AI Insights Panel | Plain-language explanation | Bullet + summary format, generated on demand to respect API costs |
+| Context Risk Score Line Chart | Show composite risk + sentiment | Normalized 0–1 scale for interpretability |
+| AI Insights Panel | Plain-language explanation | Bullet + summary format, generated on demand |
 | News Sentiment Feed | Show why spikes happened | Sentiment bar + tone badge per item; LIVE badge for Bright Data items |
-| Context Score Formula | Build formula transparency | Displayed inline in footer card, with plain-English explanation |
+| Context Score Formula | Build formula transparency | Displayed inline in footer card with plain-English explanation |
+
+### Context Risk Score Formula
+
+```
+context_score = (normalized_call_volume × 0.55) + (sentiment_risk × 0.45)
+
+where:
+  normalized_call_volume = (month_calls − min_calls) / (max_calls − min_calls)
+  sentiment_risk         = 1 − ((sentiment_score + 1) / 2)
+```
 
 ### Codebase Quality
 
 - **TypeScript end-to-end**: shared types in `shared/schema.ts` prevent frontend/backend mismatches
-- **Proper caching**: 15-minute cache for ArcGIS data, 30-minute cache for news, background refresh for Bright Data (non-blocking)
-- **Error resilience**: every API call has a documented fallback — Bright Data failure falls back to curated static data; ArcGIS failure returns a 500 with a clear message
-- **Test IDs on all interactive elements**: `data-testid` attributes on every button, card, and dynamic element support automated testing
-- **No mocked data in production**: the `REAL_NEWS_EVENTS` fallback array contains 14 real, sourced Montgomery news events — not placeholder Lorem ipsum
+- **Proper caching**: 15-minute cache for ArcGIS data, 30-minute cache for news, background non-blocking refresh for Bright Data
+- **Error resilience**: every API call has a documented fallback — Bright Data failure falls back to curated static data; ArcGIS failure returns a clear error message
+- **No mocked data in production**: the fallback news array contains 14 real, sourced Montgomery news events — not placeholder content
+- **Built with Replit**: rapid prototyped and deployed using Replit, with permission from the hackathon organizers
 
 ---
 
-## 4. Originality and Impact (Criterion 3 — 10 points)
+## 4. Originality (Criterion 3 — /5)
 
 ### What Doesn't Exist Today
 
@@ -111,42 +137,44 @@ No existing public tool for Montgomery — or most mid-sized American cities —
 
 1. Live government 911 call data
 2. Real-time news sentiment from a verified scraping source
-3. A composite risk score with a documented formula
+3. A composite risk score with a documented, transparent formula
 4. AI-generated plain-language interpretation
 
 The City of Montgomery's open data portal provides the raw numbers. Local news outlets cover individual incidents. Police press releases respond to specific events. But nothing synthesizes all three streams into a single, continuously updated view.
 
-Existing commercial alternatives (e.g., ShotSpotter, PredPol) are expensive, controversial in their use of predictive modeling, and opaque in their methods. This tool uses only publicly available data, shows its formula openly, and positions itself as a contextualizer — not a predictor.
+Existing commercial alternatives (e.g., ShotSpotter, PredPol) are expensive, controversial in their use of predictive modeling, and opaque in their methods. Civic Lens uses only publicly available data, shows its formula openly, and positions itself as a contextualizer — not a predictor.
 
 ### Responsible Design Choices
 
 The tool is deliberately named "Civic Lens" rather than a "Crime Predictor." It:
 
-- Does not identify individuals or locations within the city
+- Does not identify individuals or specific locations within the city
 - Does not use arrest or conviction data (which carries racial bias risk)
-- Displays the formula it uses so users can evaluate it
+- Displays the formula it uses so users can evaluate and challenge our assumptions
 - Uses aggregate monthly data, not incident-level granularity
-- Frames findings as "context" and "trend" rather than "prediction" or "risk score for specific residents"
-
-### Meaningful Impact at Scale
-
-If this tool were operated city-wide and updated daily:
-
-**For city officials**: Monthly context score trend lines give budget and policy decision-makers a synthesized view of public safety trajectory — without needing to request custom reports from multiple departments.
-
-**For journalists**: The news sentiment feed and AI insights panel give local reporters a starting point for investigating whether specific incidents are part of a pattern or isolated events.
-
-**For residents**: A plain-English dashboard they can check as easily as a weather app gives residents a factual basis for conversations about safety — countering misinformation and rumor.
-
-**For grant applications**: Cities applying for federal public safety funding (e.g., COPS grants, ARPA public safety allocations) need to demonstrate data-driven problem identification. This tool generates exactly the visualisations and narrative summaries those applications require.
-
-### Scale Potential
-
-The architecture is city-agnostic. Replacing the ArcGIS dataset URL and the Google News search query is the only change required to deploy this for Birmingham, Huntsville, Mobile, or any other city with a public 911 call dataset. The Bright Data news scraping and OpenAI insight generation are already parameterised. A multi-city version could serve as a statewide Alabama public safety intelligence platform.
+- Frames findings as "context" and "trend" rather than "prediction"
 
 ---
 
-## 5. Commercialisation Potential (Criterion 4 — 5 points)
+## 5. Social Value / Impact (Criterion 4 — /5)
+
+### Who Benefits and How
+
+**City officials**: Monthly context score trend lines give budget and policy decision-makers a synthesized view of public safety trajectory — without needing to request custom reports from multiple departments.
+
+**Journalists**: The news sentiment feed and AI insights panel give local reporters a starting point for investigating whether specific incidents are part of a pattern or isolated events.
+
+**Residents**: A plain-English dashboard residents can check as easily as a weather app gives them a factual basis for conversations about safety — countering misinformation and rumour.
+
+**Grant applications**: Cities applying for federal public safety funding (e.g., COPS grants, ARPA public safety allocations) need to demonstrate data-driven problem identification. This tool generates exactly the visualisations and narrative summaries those applications require.
+
+### Scale Potential
+
+The architecture is city-agnostic. Replacing the ArcGIS dataset URL and the Google News search query is the only change required to deploy this for Birmingham, Huntsville, Mobile, or any other city with a public 911 call dataset. A multi-city version could serve as a statewide Alabama public safety intelligence platform — or be adapted to any country that publishes emergency call open data.
+
+---
+
+## 6. Commercialisation (Criterion 5 — /5)
 
 ### The Market Opportunity
 
@@ -174,13 +202,13 @@ The public safety analytics market is large and underserved at the city governme
 
 ### Cost Structure
 
-The marginal cost to operate is low:
+The marginal cost to operate is very low:
 - ArcGIS open data: free (public endpoint)
 - Bright Data scraping: ~$0.004/record (highly affordable at this data volume)
 - OpenAI API: ~$0.01–$0.05 per insight generation
 - Hosting: $20–$100/month on Replit or equivalent
 
-A city paying $5,000/year covers approximately 50x the infrastructure cost at current usage levels.
+A city paying $5,000/year covers approximately 50× the infrastructure cost at current usage levels.
 
 ### Path to Revenue
 
@@ -191,7 +219,21 @@ A city paying $5,000/year covers approximately 50x the infrastructure cost at cu
 
 ---
 
-## 6. Technical Architecture
+## 7. Bright Data Integration (Bonus — +3 points)
+
+Civic Lens Montgomery uses Bright Data's DCA (Data Collector API) to scrape live Google News stories about Montgomery crime and safety. This integration:
+
+- Triggers automatically 3 seconds after server startup (non-blocking background job)
+- Scrapes `news.google.com/search?q=Montgomery+Alabama+assault+crime` via collector `c_mmaxvsv714xslv250f`
+- Polls for results using the Bright Data DCA dataset endpoint
+- On success, replaces the static news feed with live scraped items tagged with a green "LIVE" badge
+- Falls back gracefully to a curated static array of 14 verified Montgomery news events if the scrape is unavailable
+
+This qualifies for the automatic 3-point Bright Data bonus per the challenge rules.
+
+---
+
+## 8. Technical Architecture
 
 ### Data Pipeline
 
@@ -225,7 +267,7 @@ OpenAI GPT (on demand)
 | AI | OpenAI GPT via Replit AI Integrations |
 | News Scraping | Bright Data DCA API (collector c_mmaxvsv714xslv250f) |
 | Primary Dataset | City of Montgomery ArcGIS FeatureServer |
-| Hosting | Replit |
+| Hosting | Replit (with organizer permission) |
 
 ### API Reference
 
@@ -237,7 +279,7 @@ OpenAI GPT (on demand)
 
 ---
 
-## 7. Appendix — Dataset Citation
+## 9. Appendix — Dataset Citation
 
 **Primary Dataset**
 City of Montgomery 911 Calls Data
