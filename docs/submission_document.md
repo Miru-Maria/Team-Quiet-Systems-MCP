@@ -108,6 +108,7 @@ The dashboard was designed around three guiding principles:
 | AI Insights Panel | Plain-language explanation | Bullet + summary format, generated on demand |
 | News Sentiment Feed | Show why spikes happened | Sentiment bar + tone badge per item; LIVE badge for Bright Data items |
 | Context Score Formula | Build formula transparency | Displayed inline in footer card with plain-English explanation |
+| Dark / Light Mode Toggle | Accessibility and user preference | Sun/Moon button in header; persists via localStorage; respects OS preference on first visit |
 
 ### Context Risk Score Formula
 
