@@ -2,7 +2,7 @@
 
 ## City of Montgomery Open Data Challenge — Submission Document
 
-**Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
+**Challenge Stream**: Public Safety, Emergency Response & City Analytics
 
 **Solution Type**: Production-Ready (live data, fully deployed)
 
