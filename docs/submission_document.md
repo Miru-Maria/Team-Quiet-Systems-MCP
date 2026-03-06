@@ -3,8 +3,8 @@
 
 **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
 **Solution Type**: Production-Ready (live data, fully deployed)
-**Submission Date**: March 2026
-**Team**: Team Quiet Systems
+**Submission Date**: March 7 2026
+**Team**: Team Quiet Systems MCP
 **Live Application**: https://civic-lens-montgomery.replit.app
 **Repository**: https://github.com/Miru-Maria/Team-Quiet-Systems-MCP
 
@@ -18,7 +18,7 @@
 | Quality and Design | 10 | Algorithm, code, and design quality |
 | Originality | 5 | Differentiation from market alternatives |
 | Social Value / Impact | 5 | Value to society at large |
-| Commercialisation | 5 | Commercial opportunity potential |
+| Commercialization | 5 | Commercial opportunity potential |
 | **Bright Data Bonus** | **+3** | Automatic for using Bright Data product |
 | **Total Possible** | **38** | |
 
@@ -43,17 +43,15 @@ Tagline: *"Turning crime data into civic intelligence."*
 
 ## 2. Consistency with Challenge Statements (Criterion 1 — /10)
 
-*This is the most important criterion.*
+### Public Safety, Emergency Response & City Analytics
 
-### Direct Match: Stream 4 — Public Safety, Emergency Response & City Analytics
+The challenge brief explicitly calls for solutions that: *"Analyze and improve insights from 911 data"* and *"Compare crime statistics with public perception and messaging."* My application does both simultaneously, in real time.
 
-The challenge brief explicitly calls for solutions that: *"Analyze and improve insights from 911 data"* and *"Compare crime statistics with public perception and messaging."* Our application does both simultaneously, in real time.
+The challenge also names Bright Data as a suggested tool, through Replit I integrated Bright Data's DCA collector to scrape live Google News stories about Montgomery safety.
 
-The challenge also names Bright Data as a suggested tool — we integrated Bright Data's DCA collector to scrape live Google News stories about Montgomery safety, which automatically earns the 3-point bonus.
+### How Every Requirement Maps to my Solution
 
-### How Every Requirement Maps to Our Solution
-
-| Challenge Area | Our Implementation |
+| Challenge Area | My Implementation |
 |---|---|
 | City of Montgomery Data Portal | Live 911 Call Data via ArcGIS FeatureServer (public endpoint) |
 | Bright Data web scraping | Google News scrape for Montgomery crime/safety stories (background DCA job) |
@@ -62,7 +60,7 @@ The challenge also names Bright Data as a suggested tool — we integrated Brigh
 | Analyze 911 data insights | 13-month trend analysis with month-over-month comparison |
 | Compare crime stats with public perception | Context Risk Score blends call volume with news sentiment |
 
-### The Specific City of Montgomery Dataset
+### The Dataset specific to the City of Montgomery 
 
 **911 Calls Data — City of Montgomery ArcGIS Open Data Portal**
 - Service: `https://services7.arcgis.com/xNUwUjOJqYE54USz/ArcGIS/rest/services/911_Calls_Data/FeatureServer/0`
@@ -92,11 +90,11 @@ These findings emerge automatically from the live data pipeline — they are not
 
 The dashboard was designed around three guiding principles:
 
-**1. Data clarity over decoration** — every visual element exists to communicate a specific data point. Charts use labeled axes, reference lines for peak events, and clear legends. Color is used semantically (red for risk, green for improvement, amber for caution).
+**1. Data clarity over decoration** — every visual element exists to communicate a specific data point. Charts use labeled axes, reference lines for peak events, and clear legends. Color is used semantically (red for risk, green for improvement, amber for caution). Light and Dark Modes are also available and easy to toggle between.
 
 **2. Progressive disclosure** — the top of the page shows the four most important numbers at a glance (total calls, peak month, trend, sentiment). Scrolling reveals the trend charts. The AI insights panel requires an intentional button click, placing detailed analysis where users who want it can find it without overwhelming those who do not.
 
-**3. Trust signals** — a "Live Open Data" badge in the header, explicit data source attribution, and the displayed context score formula build credibility with informed users while remaining accessible to general audiences.
+**3. Trust signals** — a "Live Open Data" badge in the header, explicit data source attribution, and the displayed context score formula near the page footer all build credibility with informed users while remaining accessible to general audiences.
 
 ### Visual Components
 
@@ -160,23 +158,23 @@ The tool is deliberately named "Civic Lens" rather than a "Crime Predictor." It:
 
 ### Who Benefits and How
 
-**City officials**: Monthly context score trend lines give budget and policy decision-makers a synthesized view of public safety trajectory — without needing to request custom reports from multiple departments.
+**City officials**: Monthly context score trendlines which give budget and policy decision-makers a synthesized view of public safety trajectory, without needing to request custom reports from multiple departments.
 
 **Journalists**: The news sentiment feed and AI insights panel give local reporters a starting point for investigating whether specific incidents are part of a pattern or isolated events.
 
-**Residents**: A plain-English dashboard residents can check as easily as a weather app gives them a factual basis for conversations about safety — countering misinformation and rumour.
+**Residents**: A plain-English dashboard which residents can check as easily as a weather app, that gives them a factual basis for conversations about safety, countering misinformation and rumors.
 
-**Grant applications**: Cities applying for federal public safety funding (e.g., COPS grants, ARPA public safety allocations) need to demonstrate data-driven problem identification. This tool generates exactly the visualisations and narrative summaries those applications require.
+**Grant applications**: Cities applying for federal public safety funding (e.g., COPS grants, ARPA public safety allocations) need to demonstrate data-driven problem identification. This tool generates exactly the visualizations and narrative summaries those applications require.
 
 ### Scale Potential
 
-The architecture is city-agnostic. Replacing the ArcGIS dataset URL and the Google News search query is the only change required to deploy this for Birmingham, Huntsville, Mobile, or any other city with a public 911 call dataset. A multi-city version could serve as a statewide Alabama public safety intelligence platform — or be adapted to any country that publishes emergency call open data.
+The architecture is city-agnostic. Replacing the ArcGIS dataset URL and the Google News search query is the only change required to deploy this for Birmingham, Huntsville, Mobile, or any other city with a public 911 call dataset. A multi-city version could serve as a statewide Alabama public safety intelligence platform or be adapted to any country that publishes emergency call open data.
 
 ---
 
-## 6. Commercialisation (Criterion 5 — /5)
+## 6. Commercialization (Criterion 5 — /5)
 
-### The Market Opportunity
+### Market Opportunity
 
 The public safety analytics market is large and underserved at the city government level. Large cities use expensive enterprise platforms. Mid-sized cities like Montgomery (population ~200,000) lack the budget for enterprise tools and the technical staff to build their own. This is the addressable market.
 
@@ -193,7 +191,7 @@ The public safety analytics market is large and underserved at the city governme
 - API access to the context score time series
 - News sentiment feed via webhook
 - Custom search queries (beyond assault — traffic, housing, environment)
-- Target: local news organisations, university criminology departments, policy think tanks
+- Target: local news organizations, university criminology departments, policy think tanks
 
 **Tier 3 — Insurance & Real Estate Data Feed ($10,000–$50,000/year)**
 - Aggregated risk score data for underwriting and property assessment
@@ -214,7 +212,7 @@ A city paying $5,000/year covers approximately 50× the infrastructure cost at c
 
 1. **Month 1-3**: Demonstrate value with Montgomery as a free pilot; collect usage data and testimonials
 2. **Month 4-6**: Approach Birmingham and Huntsville city councils with a live demo
-3. **Month 7-12**: SaaS product launch with standardised onboarding for mid-sized Alabama cities
+3. **Month 7-12**: SaaS product launch with standardized onboarding for mid-sized Alabama cities
 4. **Year 2**: Expand to other southeastern US states; build API for journalism and research verticals
 
 ---
