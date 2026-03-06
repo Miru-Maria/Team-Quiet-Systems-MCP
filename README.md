@@ -179,7 +179,7 @@ From the live dataset (Jan 2025 – Feb 2026):
 ## Submission Details
 
 - **Hackathon**: City of Montgomery Open Data Challenge
-- **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
+- **Challenge Stream**: Public Safety, Emergency Response & City Analytics
 - **Solution Type**: Production-ready (deployed, live data, no mocked values)
 - **Team**: Miruna Cristiana Paun / Team Quiet Systems MCP
 
