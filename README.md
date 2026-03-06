@@ -7,8 +7,11 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Deployed-brightgreen)](https://civic-lens-montgomery.replit.app)
 
 **Live App: https://civic-lens-montgomery.replit.app**
+
 [![Challenge Stream](https://img.shields.io/badge/Challenge%20Stream-Public%20Safety%20%26%20Analytics-red)](https://github.com)
+
 [![Data Source](https://img.shields.io/badge/Data%20Source-City%20of%20Montgomery%20ArcGIS-blue)](https://opendata.montgomeryal.gov)
+
 [![Built With](https://img.shields.io/badge/Built%20With-React%20%7C%20Node.js%20%7C%20OpenAI%20%7C%20Bright%20Data-purple)](https://github.com)
 
 ---
@@ -124,8 +127,8 @@ A score of `1.0` means maximum concern (peak call volume + maximally negative ne
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/assault-trend-contextualizer
-cd assault-trend-contextualizer
+git clone https://github.com/Miru-Maria/Team-Quiet-Systems-MCP/
+cd Team-Quiet-Systems-MCP
 
 # 2. Install dependencies
 npm install
@@ -166,11 +169,10 @@ From the live dataset (Jan 2025 – Feb 2026):
 
 ## Screenshots
 
-> Add screenshots here. Suggested shots:
-> - Full dashboard overview
-> - AI Insights panel with generated bullets
-> - Context Risk Score chart showing October 2025 spike
-> - News Sentiment Feed with live items
+<img width="1243" height="730" alt="image" src="https://github.com/user-attachments/assets/235fa459-8c0b-412b-a548-a1194716e2d6" />
+<img width="1247" height="867" alt="image" src="https://github.com/user-attachments/assets/383b3114-7b2e-4fb4-977f-73794a549bb3" />
+<img width="1243" height="886" alt="image" src="https://github.com/user-attachments/assets/23dfc543-e955-42f6-8a95-a1ebd3d938b6" />
+
 
 ---
 
@@ -179,7 +181,7 @@ From the live dataset (Jan 2025 – Feb 2026):
 - **Hackathon**: City of Montgomery Open Data Challenge
 - **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
 - **Solution Type**: Production-ready (deployed, live data, no mocked values)
-- **Team**: [Your Name / Team Name]
+- **Team**: Miruna Cristiana Paun / Team Quiet Systems MCP
 
 ---
 
