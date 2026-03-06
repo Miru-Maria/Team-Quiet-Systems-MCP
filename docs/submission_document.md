@@ -1,11 +1,17 @@
 # Civic Lens Montgomery
+
 ## City of Montgomery Open Data Challenge — Submission Document
 
 **Challenge Stream**: 4 — Public Safety, Emergency Response & City Analytics
+
 **Solution Type**: Production-Ready (live data, fully deployed)
+
 **Submission Date**: March 7 2026
+
 **Team**: Team Quiet Systems MCP
+
 **Live Application**: https://civic-lens-montgomery.replit.app
+
 **Repository**: https://github.com/Miru-Maria/Team-Quiet-Systems-MCP
 
 ---
