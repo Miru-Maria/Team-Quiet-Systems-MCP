@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import {
   LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid,
@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import {
   AlertTriangle, TrendingUp, TrendingDown, Phone, Brain,
   Newspaper, RefreshCw, Info, MapPin, Calendar, Activity,
-  ExternalLink, Shield, BarChart2
+  ExternalLink, Shield, BarChart2, Sun, Moon
 } from "lucide-react";
 import type { TrendDataResponse, NewsItem, Insight, MonthlyData } from "@shared/schema";
 
@@ -99,6 +99,24 @@ const ContextTooltip = ({ active, payload, label }: any) => {
 
 export default function Dashboard() {
   const [insightsGenerated, setInsightsGenerated] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") === "dark" ||
+        (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
 
   const trendQuery = useQuery<TrendDataResponse>({
     queryKey: ["/api/trend-data"],
@@ -141,7 +159,7 @@ export default function Dashboard() {
             <div className="p-2 rounded-md bg-primary/10">
               <Shield className="w-5 h-5 text-primary" />
             </div>
-            <div>
+            <div className="flex flex-col gap-1">
               <h1 className="text-lg font-bold leading-tight" data-testid="text-app-title">
                 Civic Lens Montgomery
               </h1>
@@ -163,6 +181,16 @@ export default function Dashboard() {
                 Updated {new Date(stats.lastUpdated).toLocaleTimeString()}
               </p>
             )}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsDark(!isDark)}
+              data-testid="button-theme-toggle"
+              className="h-8 w-8"
+              aria-label="Toggle dark mode"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </Button>
           </div>
         </div>
       </header>
