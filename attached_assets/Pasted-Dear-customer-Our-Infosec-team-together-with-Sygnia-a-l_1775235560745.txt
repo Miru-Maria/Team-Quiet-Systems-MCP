@@ -1,0 +1,35 @@
+Dear customer,
+
+Our Infosec team, together with Sygnia, a leading external cyber security response team, is currently investigating a potential security incident in a portion of the Bright Data platform.
+
+The investigation is still ongoing, but we have reasons to believe that data related to your account could have potentially been exposed. Because your products are properly set up with allowed IPs, this issue should not have an impact on your account. As of now, we have no evidence of misuse to your account. We take this matter seriously, are actively investigating the situation, and implementing additional security measures.
+
+As soon as we became aware of the incident, we activated our security protocols and took comprehensive measures to mitigate the issue. For enhanced account security, we recommend you change passwords on the products you are using. We also recommend that you change the account password that you use to access the Bright Data control panel.
+
+Changing your password
+
+Your password is created on the Bright Data dashboard, and is then used in your own code, or the application that you are using with Bright Data. You need to change it in both places.
+
+Note that your production traffic can continue uninterrupted even while changing password because they can have more than one password at the same time. If you have many passwords, you can change them via API.
+
+
+Changing passwords using the control panel:
+Log into the control panel, and go to Proxies or Web Access APIs as needed.
+From the table, click the product (previously called “zone”) you want to modify.
+Click on the Configuration tab, and scroll to Security settings. You will see the current password.
+Add a new password. This means the product will have 2 passwords, both will be valid at the same time.
+Change the password in your own code or application that uses the proxy, from the old to the new password.
+Verify that everything works as expected with the new password.
+You must then delete the old password.
+Settings will take effect automatically and immediately.
+
+
+Changing passwords using the API:
+
+You can programmatically change passwords via API. Add the new password, and then delete the old one. See additional details in the documentation.
+
+Bright Data has been and remains fully operational while the investigation continues.
+
+If you have any additional questions, simply reply to this email or contact support@brightdata.com.
+
+Bright Data Information Security team
